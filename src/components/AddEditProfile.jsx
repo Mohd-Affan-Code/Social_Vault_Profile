@@ -8,13 +8,21 @@ import {
   FileText,
   Image as ImageIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addProfile } from "../features/ProfileData/ProfileDataSlice";
 
 export default function AddEditProfileUI() {
-  const [inputData, setInputData] = useState({
+  const dispatch = useDispatch();
+  const profiles = useSelector((state) => state.profileData);
+
+  console.log("Store mein kitne profiles hain:", profiles);
+  console.log("Total profiles:", profiles.length);
+
+  const [formData, setFormData] = useState({
     name: "",
     username: "",
-    platforms: "",
+    platform: "Instagram",
     profileLink: "",
     notes: "",
     imageUrl: "",
@@ -23,18 +31,51 @@ export default function AddEditProfileUI() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setInputData((prev) => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  const handlePlatformClick = (platform) => {
+    setFormData((prev) => ({
+      ...prev,
+      platform: platform,
+    }));
+  };
+
+  useEffect(() => {
+    if (formData.username && formData.platform) {
+      const links = {
+        Instagram: `https://instagram.com/${formData.username}`,
+        Facebook: `https://facebook.com/${formData.username}`,
+        Twitter: `https://twitter.com/${formData.username}`,
+        LinkedIn: `https://linkedin.com/in/${formData.username}`,
+        YouTube: `https://youtube.com/@${formData.username}`,
+        TikTok: `https://tiktok.com/@${formData.username}`,
+      };
+
+      setFormData((prev) => ({
+        ...prev,
+        profileLink: links[prev.platform] || "",
+      }));
+    }
+  }, [formData.username, formData.platform]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(formData);
     // Redux store mein bhejo
-    dispatch(addUser(inputData));
+    dispatch(addProfile(formData));
     // Form reset karo
-    setInputData({ name: "", email: "" });
+    setFormData({
+      name: "",
+      username: "",
+      platform: "Instagram",
+      profileLink: "",
+      notes: "",
+      imageUrl: "",
+    });
   };
 
   const platforms = [
@@ -70,9 +111,9 @@ export default function AddEditProfileUI() {
           <div className="mb-6">
             <label className="block text-gray-700 mb-3">Profile Image</label>
             <div className="flex items-center gap-6">
-              {inputData.imageUrl ? (
+              {formData.imageUrl ? (
                 <img
-                  src={inputData.imageUrl}
+                  src={formData.imageUrl}
                   alt="Profile preview"
                   className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
                 />
@@ -85,7 +126,7 @@ export default function AddEditProfileUI() {
                 <input
                   type="text"
                   name="imageUrl"
-                  value={inputData.imageUrl}
+                  value={formData.imageUrl}
                   onChange={handleChange}
                   placeholder="Enter image URL"
                   className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -108,7 +149,7 @@ export default function AddEditProfileUI() {
                 id="name"
                 type="text"
                 name="name"
-                value={inputData.name}
+                value={formData.name}
                 onChange={handleChange}
                 placeholder="John Doe"
                 className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -128,7 +169,7 @@ export default function AddEditProfileUI() {
                 id="username"
                 type="text"
                 name="username"
-                value={inputData.username}
+                value={formData.username}
                 onChange={handleChange}
                 placeholder="johndoe"
                 className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -146,8 +187,9 @@ export default function AddEditProfileUI() {
                 <button
                   key={platform}
                   type="button"
+                  onClick={() => handlePlatformClick(platform)}
                   className={`px-4 py-3 rounded-xl border-2 transition-all ${
-                    inputData.platform === platform
+                    formData.platform === platform
                       ? "border-blue-500 bg-blue-50 text-blue-700"
                       : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
                   }`}
@@ -169,7 +211,10 @@ export default function AddEditProfileUI() {
                 id="profileLink"
                 type="url"
                 name="profileLink"
-                value={inputData.profileLink}
+                value={formData.profileLink}
+                onChange={(e) =>
+                  setFormData({ ...formData, profileLink: e.target.value })
+                }
                 placeholder="https://..."
                 className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-gray-50"
                 readOnly
@@ -189,7 +234,7 @@ export default function AddEditProfileUI() {
               <FileText className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <textarea
                 id="notes"
-                value={inputData.notes}
+                value={formData.notes}
                 onChange={handleChange}
                 name="notes"
                 placeholder="Add any notes about this person..."
