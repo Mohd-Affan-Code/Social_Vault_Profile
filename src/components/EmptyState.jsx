@@ -1,7 +1,7 @@
 import React from "react";
 import { UserPlus, Lock, Users, Sparkles } from "lucide-react";
 
-export default function EmptyState() {
+export default function EmptyState({ handleCancel }) {
   return (
     <div className="min-h-[60vh]  flex items-center justify-center px-4">
       <div className="max-w-md w-full text-center">
@@ -52,7 +52,10 @@ export default function EmptyState() {
         </p>
 
         {/* Action Button */}
-        <button className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 hover:scale-[1.05] active:scale-[0.98]">
+        <button
+          onClick={() => handleCancel()}
+          className="inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 hover:scale-[1.05] active:scale-[0.98]"
+        >
           <UserPlus className="w-5 h-5" />
           Add Your First Profile
         </button>

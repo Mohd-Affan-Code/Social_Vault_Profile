@@ -3,7 +3,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 const initialState = {
   profileData: [
     {
-      id: "1",
+      id: 1,
       name: "Sarah Johnson",
       username: "sarahjdesigns",
       platform: "Instagram",
@@ -24,13 +24,13 @@ export const profileDataSlice = createSlice({
         id: nanoid(),
         ...action.payload, // formData
       });
-      console.log(state.profileData);
     },
     removeProfile: (state, action) => {
-      state.profileData = state.profileData.filter((profile) => {
-        return profile.id !== action.payload.id;
-      });
+      state.profileData = state.profileData.filter(
+        (profile) => profile.id !== action.payload
+      );
     },
+
     updateProfile: (state, action) => {
       const { id, updatedData } = action.payload;
 

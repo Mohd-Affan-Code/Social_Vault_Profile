@@ -9,15 +9,16 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addProfile } from "../features/ProfileData/ProfileDataSlice";
+import { useDispatch } from "react-redux";
+import {
+  addProfile,
+  updateProfile,
+} from "../features/ProfileData/ProfileDataSlice";
 
-export default function AddEditProfileUI() {
+export default function AddEditProfileUI({ handleCancel, editingProfile }) {
+  const isEditMode = Boolean(editingProfile);
+
   const dispatch = useDispatch();
-  const profiles = useSelector((state) => state.profileData);
-
-  console.log("Store mein kitne profiles hain:", profiles);
-  console.log("Total profiles:", profiles.length);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,6 +28,19 @@ export default function AddEditProfileUI() {
     notes: "",
     imageUrl: "",
   });
+
+  useEffect(() => {
+    if (editingProfile) {
+      setFormData({
+        name: editingProfile.name || "",
+        username: editingProfile.username || "",
+        platform: editingProfile.platform || "Instagram",
+        profileLink: editingProfile.profileLink || "",
+        notes: editingProfile.notes || "",
+        imageUrl: editingProfile.imageUrl || "",
+      });
+    }
+  }, [editingProfile]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,18 +78,28 @@ export default function AddEditProfileUI() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
-    // Redux store mein bhejo
-    dispatch(addProfile(formData));
-    // Form reset karo
-    setFormData({
-      name: "",
-      username: "",
-      platform: "Instagram",
-      profileLink: "",
-      notes: "",
-      imageUrl: "",
-    });
+
+    if (isEditMode) {
+      dispatch(
+        updateProfile({
+          id: editingProfile.id,
+          updatedData: formData,
+        })
+      );
+    } else {
+      dispatch(addProfile(formData));
+
+      setFormData({
+        name: "",
+        username: "",
+        platform: "Instagram",
+        profileLink: "",
+        notes: "",
+        imageUrl: "",
+      });
+    }
+
+    handleCancel(); // form close
   };
 
   const platforms = [
@@ -94,7 +118,10 @@ export default function AddEditProfileUI() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4">
           <div className="flex items-center justify-between">
             <h1 className="text-gray-900">Add New Profile</h1>
-            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+            <button
+              onClick={() => handleCancel()}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            >
               <X className="w-6 h-6 text-gray-500" />
             </button>
           </div>
@@ -248,6 +275,7 @@ export default function AddEditProfileUI() {
           {/* Action Buttons */}
           <div className="flex gap-3">
             <button
+              onClick={() => handleCancel()}
               type="button"
               className="flex-1 px-6 py-3 border border-gray-200 text-gray-700 rounded-xl hover:bg-gray-50 transition-all"
             >

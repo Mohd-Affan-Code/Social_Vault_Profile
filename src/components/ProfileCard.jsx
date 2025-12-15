@@ -11,7 +11,11 @@ import {
   Music,
 } from "lucide-react";
 
-export default function ProfileCardUI() {
+import { useDispatch } from "react-redux";
+import { removeProfile } from "../features/ProfileData/ProfileDataSlice";
+
+export default function ProfileCard({ profile, handleUpdateFormData }) {
+  const dispatch = useDispatch();
   const getPlatformIcon = (platform) => {
     switch (platform) {
       case "Instagram":
@@ -50,14 +54,8 @@ export default function ProfileCardUI() {
     }
   };
 
-  // Sample data for UI display
-  const profile = {
-    name: "John Doe",
-    username: "johndoe",
-    platform: "Instagram",
-    imageUrl: "",
-    notes: "This is a sample note about the profile",
-    profileLink: "#",
+  const handleOpenProfile = () => {
+    window.open(profile.profileLink, "_blank");
   };
 
   return (
@@ -114,7 +112,10 @@ export default function ProfileCardUI() {
             <Copy className="w-4 h-4 text-gray-600" />
             <span className="text-gray-700">Copy</span>
           </button>
-          <button className="flex items-center justify-center gap-2 px-3 py-2 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors">
+          <button
+            onClick={handleOpenProfile}
+            className="flex items-center justify-center gap-2 px-3 py-2 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors"
+          >
             <ExternalLink className="w-4 h-4 text-blue-600" />
             <span className="text-blue-700">Open</span>
           </button>
@@ -123,10 +124,16 @@ export default function ProfileCardUI() {
 
       {/* Bottom Actions */}
       <div className="border-t border-gray-100 bg-gray-50 px-6 py-3 flex items-center justify-end gap-2">
-        <button className="p-2 hover:bg-white rounded-lg transition-colors group/edit">
+        <button
+          onClick={() => handleUpdateFormData(profile)}
+          className="p-2 hover:bg-white rounded-lg transition-colors group/edit"
+        >
           <Edit2 className="w-4 h-4 text-gray-500 group-hover/edit:text-blue-600 transition-colors" />
         </button>
-        <button className="p-2 hover:bg-white rounded-lg transition-colors group/delete">
+        <button
+          onClick={() => dispatch(removeProfile(profile.id))}
+          className="p-2 hover:bg-white rounded-lg transition-colors group/delete"
+        >
           <Trash2 className="w-4 h-4 text-gray-500 group-hover/delete:text-red-600 transition-colors" />
         </button>
       </div>
