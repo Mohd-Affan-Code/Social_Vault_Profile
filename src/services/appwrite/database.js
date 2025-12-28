@@ -22,6 +22,11 @@ export const databaseService = {
           plateform: data.plateform,
           note: data.note,
         },
+        permissions: [
+          Permission.read(Role.user(userId)),
+          Permission.update(Role.user(userId)),
+          Permission.delete(Role.user(userId)),
+        ],
       });
       console.log("Document created:", response);
       return response;

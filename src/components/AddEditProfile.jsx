@@ -10,10 +10,8 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  addProfile,
-  updateProfile,
-} from "../features/ProfileData/ProfileDataSlice";
+
+import { createProfile, updateProfile } from "../app/ProfileSlice";
 
 export default function AddEditProfileUI({ handleCancel, editingProfile }) {
   const isEditMode = Boolean(editingProfile);
@@ -82,12 +80,28 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
     if (isEditMode) {
       dispatch(
         updateProfile({
-          id: editingProfile.id,
-          updatedData: formData,
+          id: editingProfile.rowId, // 👈 IMPORTANT
+          data: {
+            fullName: formData.name,
+            username: formData.username,
+            plateform: formData.platform,
+            profileLink: formData.profileLink,
+            note: formData.notes,
+            imageUrl: formData.imageUrl,
+          },
         })
       );
     } else {
-      dispatch(addProfile(formData));
+      dispatch(
+        createProfile({
+          fullName: formData.name,
+          username: formData.username,
+          plateform: formData.platform,
+          profileLink: formData.profileLink,
+          note: formData.notes,
+          imageUrl: formData.imageUrl,
+        })
+      );
 
       setFormData({
         name: "",
@@ -99,7 +113,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
       });
     }
 
-    handleCancel(); // form close
+    handleCancel();
   };
 
   const platforms = [

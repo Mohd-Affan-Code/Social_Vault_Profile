@@ -16,8 +16,8 @@ import { removeProfile } from "../features/ProfileData/ProfileDataSlice";
 
 export default function ProfileCard({ profile, handleUpdateFormData }) {
   const dispatch = useDispatch();
-  const getPlatformIcon = (platform) => {
-    switch (platform) {
+  const getPlatformIcon = (plateform) => {
+    switch (plateform) {
       case "Instagram":
         return <Instagram className="w-5 h-5" />;
       case "Facebook":
@@ -35,8 +35,8 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
     }
   };
 
-  const getPlatformColor = (platform) => {
-    switch (platform) {
+  const getPlatformColor = (plateform) => {
+    switch (plateform) {
       case "Instagram":
         return "from-pink-500 to-purple-600";
       case "Facebook":
@@ -67,18 +67,18 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
           {profile.imageUrl ? (
             <img
               src={profile.imageUrl}
-              alt={profile.name}
+              alt={profile.fullName}
               className="w-16 h-16 rounded-full object-cover border-2 border-gray-100 shadow-sm"
             />
           ) : (
             <div className="w-16 h-16 rounded-full bg-linear-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white shadow-sm">
-              {profile.name.charAt(0).toUpperCase()}
+              {profile.fullName.charAt(0).toUpperCase()}
             </div>
           )}
 
           {/* Name and Username */}
           <div className="flex-1 min-w-0">
-            <h3 className="text-gray-900 truncate mb-1">{profile.name}</h3>
+            <h3 className="text-gray-900 truncate mb-1">{profile.fullName}</h3>
             <div className="flex items-center gap-2 text-gray-600">
               <span className="truncate">@{profile.username}</span>
             </div>
@@ -89,20 +89,18 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
         <div className="flex items-center gap-2 mb-4">
           <div
             className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-linear-to-r ${getPlatformColor(
-              profile.platform
+              profile.plateform
             )} text-white shadow-sm`}
           >
-            {getPlatformIcon(profile.platform)}
-            <span className="text-sm">{profile.platform}</span>
+            {getPlatformIcon(profile.plateform)}
+            <span className="text-sm">{profile.plateform}</span>
           </div>
         </div>
 
         {/* Notes */}
-        {profile.notes && (
+        {profile.note && (
           <div className="mb-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
-            <p className="text-gray-600 text-sm line-clamp-2">
-              {profile.notes}
-            </p>
+            <p className="text-gray-600 text-sm line-clamp-2">{profile.note}</p>
           </div>
         )}
 

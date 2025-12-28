@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EmptyState from "./EmptyState";
 import { Plus, Search } from "lucide-react";
 import ProfileCard from "./ProfileCard";
 import Header from "./Header";
 import AddEditProfile from "./AddEditProfile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProfiles, deleteProfile } from "../app/ProfileSlice";
 
-export default function Dashboard() {
+export default function Dashboard({ setUser }) {
+  const dispatch = useDispatch();
   const [editingProfile, setEditingProfile] = useState(null);
 
-  const profiles = useSelector((state) => state.profileData);
+  const { profiles, loading } = useSelector((state) => state.profiles);
+  console.log(profiles);
+
+  useEffect(() => {
+    // Component load hote hi data fetch karo
+    dispatch(fetchProfiles());
+  }, [dispatch]);
 
   const [showAddEdit, setShowAddEdit] = useState(false);
 
@@ -37,7 +45,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header handleCancel={handleCancel} />
+      <Header setUser={setUser} handleCancel={handleCancel} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {profiles.length === 0 ? (
           <EmptyState handleCancel={handleCancel} />
@@ -68,7 +76,7 @@ export default function Dashboard() {
             >
               {profiles.map((profile) => (
                 <ProfileCard
-                  key={profile.id}
+                  key={profile.$id}
                   profile={profile}
                   handleUpdateFormData={handleUpdateFormData}
                 />

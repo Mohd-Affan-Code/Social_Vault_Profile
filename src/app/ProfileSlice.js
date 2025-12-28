@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { databaseService } from "../../appwrite/databaseService";
+import { databaseService } from "../services/appwrite/database";
 
 /* ================= ASYNC THUNKS ================= */
 
