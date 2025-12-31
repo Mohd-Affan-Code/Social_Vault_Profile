@@ -6,8 +6,16 @@ export const createUser = createAsyncThunk(
   "auth/createUser",
   async ({ email, password, name }, { rejectWithValue }) => {
     try {
-      const user = await authService.createAccount(email, password, name);
-      return user;
+      // 1️⃣ Account create
+      await authService.createAccount(email, password, name);
+
+      // 2️⃣ Auto login (SESSION CREATE)
+      const session = await authService.login(email, password);
+
+      // 3️⃣ Get logged in user
+      const user = await authService.getCurrentUser();
+
+      return { user, session };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -17,12 +25,17 @@ export const createUser = createAsyncThunk(
 // Login
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
-  async ({ email, password }, thunkAPI) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
+      // 1️⃣ Create session
       const session = await authService.login(email, password);
-      return session;
+
+      // 2️⃣ Get current user
+      const user = await authService.getCurrentUser();
+
+      return { session, user };
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -71,8 +84,11 @@ const authSlice = createSlice({
         state.loading = true;
       })
       .addCase(createUser.fulfilled, (state, action) => {
-        (state.loading = false), (state.user = action.payload);
+        state.loading = false;
+        state.user = action.payload.user;
+        state.session = action.payload.session;
       })
+
       .addCase(createUser.rejected, (state, action) => {
         (state.loading = false), (state.error = action.payload);
       })
@@ -82,7 +98,8 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.session = action.payload;
+        state.session = action.payload.session;
+        state.user = action.payload.user;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

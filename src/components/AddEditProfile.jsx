@@ -9,12 +9,14 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { createProfile, updateProfile } from "../app/ProfileSlice";
 
 export default function AddEditProfileUI({ handleCancel, editingProfile }) {
   const isEditMode = Boolean(editingProfile);
+
+  const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -88,6 +90,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
             profileLink: formData.profileLink,
             note: formData.notes,
             imageUrl: formData.imageUrl,
+            userId: user.$id,
           },
         })
       );

@@ -6,9 +6,11 @@ import { databaseService } from "../services/appwrite/database";
 // CREATE
 export const createProfile = createAsyncThunk(
   "profiles/create",
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, getState }) => {
     try {
-      return await databaseService.createDocument(data);
+      const userId = getState().auth.user.$id;
+
+      return await databaseService.createDocument(data, userId);
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -99,8 +101,16 @@ const profileSlice = createSlice({
       })
 
       /* ---------- CREATE ---------- */
+      .addCase(createProfile.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(createProfile.fulfilled, (state, action) => {
+        state.loading = false;
         state.profiles.unshift(action.payload);
+      })
+      .addCase(createProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       })
 
       /* ---------- FETCH ONE ---------- */

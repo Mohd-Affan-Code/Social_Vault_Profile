@@ -8,4 +8,4 @@ client
 
 export const account = new Account(client);
 export const tablesDB = new TablesDB(client);
-export { ID } from "appwrite";
+export { ID, Role, Permission } from "appwrite";

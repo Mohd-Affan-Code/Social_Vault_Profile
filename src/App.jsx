@@ -18,25 +18,14 @@ function App() {
 
   console.log(user);
   useEffect(() => {
-    dispatch(getCurrentUser());
+    console.log("rerender");
+    authService
+      .getCurrentUser()
+      .then((user) => {
+        if (user) dispatch(getCurrentUser());
+      })
+      .catch(() => {});
   }, [dispatch]);
-
-  // useEffect(() => {
-  //   const checkAuth = async () => {
-  //     try {
-  //       const currentUser = await authService.getCurrentUser();
-  //       console.log(currentUser);
-  //       setUser(currentUser);
-  //       console.log(user);
-  //     } catch {
-  //       setUser(null);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   checkAuth();
-  // }, []);
 
   if (loading) {
     return <DashboardShimmer />;

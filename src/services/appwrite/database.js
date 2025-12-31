@@ -1,4 +1,5 @@
-import { tablesDB, ID } from "./config";
+import { tablesDB, ID, Role, Permission } from "./config";
+
 import conf from "../../conf/conf";
 
 // Base configuration ek jagah define karo
@@ -9,7 +10,7 @@ const DB_CONFIG = {
 
 export const databaseService = {
   // Create Document
-  async createDocument(data) {
+  async createDocument(data, userId) {
     try {
       const response = await tablesDB.createRow({
         ...DB_CONFIG, // Spread operator se IDs automatically add ho jayengi
