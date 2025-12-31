@@ -1,33 +1,19 @@
 import React, { useState } from "react";
-import { authService } from "../services/appwrite/auth";
 import { Link, useNavigate } from "react-router";
+import { loginUser } from "../app/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-function Login({ setUser }) {
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector((state) => state.auth);
 
   const navigate = useNavigate(); // 👈 ADD THIS
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    try {
-      await authService.login(email, password);
-      alert("Login successful!");
-      const currentUser = await authService.getCurrentUser();
-      setUser(currentUser);
-
-      navigate("/dashboard");
-      // Redirect to dashboard
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    dispatch(loginUser({ email, password }));
   };
 
   return (

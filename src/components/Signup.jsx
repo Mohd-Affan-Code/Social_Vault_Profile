@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { authService } from "../services/appwrite/auth";
 import { Link } from "react-router";
+import { createUser } from "../app/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-function Signup({ setUser }) {
+function Signup() {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState("");
+  // const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,27 +25,28 @@ function Signup({ setUser }) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
+    // setError("");
+    // setLoading(true);
+    dispatch(createUser(formData));
 
-    try {
-      await authService.createAccount(
-        formData.email,
-        formData.password,
-        formData.name
-      );
-      // Auto login after signup
-      await authService.login(formData.email, formData.password);
-      alert("Account created successfully!");
-      const userData = await authService.getCurrentUser();
+    // try {
+    //   await authService.createAccount(
+    //     formData.email,
+    //     formData.password,
+    //     formData.name
+    //   );
+    //   // Auto login after signup
+    //   await authService.login(formData.email, formData.password);
+    //   alert("Account created successfully!");
+    //   const userData = await authService.getCurrentUser();
 
-      // 4. Sabse important: App.jsx ki state update karein
-      setUser(userData);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    //   // 4. Sabse important: App.jsx ki state update karein
+    //   setUser(userData);
+    // } catch (err) {
+    //   setError(err.message);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (

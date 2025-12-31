@@ -6,6 +6,7 @@ import Header from "./Header";
 import AddEditProfile from "./AddEditProfile";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfiles, deleteProfile } from "../app/ProfileSlice";
+import DashboardShimmer from "./shimmer/DashboardShimmer";
 
 export default function Dashboard({ setUser }) {
   const dispatch = useDispatch();
@@ -40,6 +41,14 @@ export default function Dashboard({ setUser }) {
         handleCancel={handleCancel}
         editingProfile={editingProfile}
       />
+    );
+  }
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header setUser={setUser} />
+        <DashboardShimmer />
+      </div>
     );
   }
 

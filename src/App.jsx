@@ -7,28 +7,36 @@ import Signup from "./components/Signup";
 import ProtectedRoute from "./routes/AuthLayout";
 import { authService } from "./services/appwrite/auth";
 import DashboardShimmer from "./components/shimmer/DashboardShimmer";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser } from "./app/authSlice";
 
 function App() {
-  const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
+  // const [user, setUser] = useState(null);
 
-  const [loading, setLoading] = useState(true);
+  const { user, loading } = useSelector((state) => state.auth);
 
+  console.log(user);
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const currentUser = await authService.getCurrentUser();
-        console.log(currentUser);
-        setUser(currentUser);
-        console.log(user);
-      } catch {
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
+    dispatch(getCurrentUser());
+  }, [dispatch]);
 
-    checkAuth();
-  }, []);
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       const currentUser = await authService.getCurrentUser();
+  //       console.log(currentUser);
+  //       setUser(currentUser);
+  //       console.log(user);
+  //     } catch {
+  //       setUser(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   checkAuth();
+  // }, []);
 
   if (loading) {
     return <DashboardShimmer />;
@@ -40,27 +48,27 @@ function App() {
         <Route
           path="/"
           element={
-            user ? <Navigate to="/dashboard" /> : <Navigate to="/login" />
+            user ? (
+              <Navigate to="/dashboard" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
           }
         />
         <Route
           path="/login"
-          element={
-            user ? <Navigate to="/dashboard" /> : <Login setUser={setUser} />
-          }
+          element={user ? <Navigate to="/dashboard" /> : <Login />}
         />
 
         <Route
           path="/signup"
-          element={
-            user ? <Navigate to="/dashboard" /> : <Signup setUser={setUser} />
-          }
+          element={user ? <Navigate to="/dashboard" /> : <Signup />}
         />
 
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute user={user} setUser={setUser}>
+            <ProtectedRoute>
               <Dashboard />
             </ProtectedRoute>
           }
