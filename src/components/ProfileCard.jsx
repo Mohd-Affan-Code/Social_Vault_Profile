@@ -13,6 +13,7 @@ import {
 
 import { useDispatch } from "react-redux";
 // import { removeProfile } from "../features/ProfileData/ProfileDataSlice";
+import { deleteProfile } from "../app/ProfileSlice";
 
 export default function ProfileCard({ profile, handleUpdateFormData }) {
   const dispatch = useDispatch();
@@ -129,7 +130,7 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
           <Edit2 className="w-4 h-4 text-gray-500 group-hover/edit:text-blue-600 transition-colors" />
         </button>
         <button
-          onClick={() => dispatch(profile.id)}
+          onClick={() => dispatch(deleteProfile(profile.$id))}
           className="p-2 hover:bg-white rounded-lg transition-colors group/delete"
         >
           <Trash2 className="w-4 h-4 text-gray-500 group-hover/delete:text-red-600 transition-colors" />

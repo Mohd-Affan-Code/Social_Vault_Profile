@@ -131,7 +131,7 @@ const profileSlice = createSlice({
       /* ---------- DELETE ---------- */
       .addCase(deleteProfile.fulfilled, (state, action) => {
         state.profiles = state.profiles.filter(
-          (item) => item.rowId !== action.payload
+          (item) => item.$id !== action.payload
         );
       });
   },

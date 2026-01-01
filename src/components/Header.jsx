@@ -46,7 +46,7 @@ export default function Header({ handleCancel, user, onLogout, setUser }) {
             {/* Add Profile Button */}
             <button
               onClick={() => handleCancel()}
-              className="bg-linear-to-r from-blue-600 to-purple-600 text-white px-4 py-2.5 rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200 flex items-center gap-2 hover:scale-105 active:scale-95 font-medium"
+              className="hidden sm:flex bg-linear-to-r from-blue-600 to-purple-600 text-white px-4 py-2.5 rounded-xl hover:shadow-lg hover:shadow-blue-500/30 transition-all duration-200  items-center gap-2 hover:scale-105 active:scale-95 font-medium"
             >
               <Plus className="w-5 h-5" />
               <span className="hidden sm:inline">Add Profile</span>
