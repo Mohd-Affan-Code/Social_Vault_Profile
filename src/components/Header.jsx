@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Search, Plus, Lock, LogOut, User } from "lucide-react";
-import { authService } from "../services/appwrite/auth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../app/authSlice";
 
-export default function Header({ handleCancel, user, onLogout, setUser }) {
+export default function Header({ handleCancel }) {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   async function handleLogout() {
     dispatch(logoutUser());

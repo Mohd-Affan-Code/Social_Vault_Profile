@@ -10,10 +10,16 @@ import DashboardShimmer from "./shimmer/DashboardShimmer";
 
 export default function Dashboard({ setUser }) {
   const dispatch = useDispatch();
-  const [editingProfile, setEditingProfile] = useState(null);
+  const [editingProfile, setEditingProfile] = useState({
+    fullName: "",
+    username: "",
+    platform: "",
+    profileLink: "",
+    note: "",
+    imageUrl: "",
+  });
 
   const { profiles, loading } = useSelector((state) => state.profiles);
-  console.log(profiles);
 
   useEffect(() => {
     // Component load hote hi data fetch karo

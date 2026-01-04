@@ -121,7 +121,7 @@ const profileSlice = createSlice({
       /* ---------- UPDATE ---------- */
       .addCase(updateProfile.fulfilled, (state, action) => {
         const index = state.profiles.findIndex(
-          (item) => item.rowId === action.payload.rowId
+          (item) => item.$id === action.payload.$id
         );
         if (index !== -1) {
           state.profiles[index] = action.payload;

@@ -124,7 +124,7 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
       {/* Bottom Actions */}
       <div className="border-t border-gray-100 bg-gray-50 px-6 py-3 flex items-center justify-end gap-2">
         <button
-          onClick={() => handleUpdateFormData(profile)}
+          onClick={() => handleUpdateFormData({ ...profile })}
           className="p-2 hover:bg-white rounded-lg transition-colors group/edit"
         >
           <Edit2 className="w-4 h-4 text-gray-500 group-hover/edit:text-blue-600 transition-colors" />

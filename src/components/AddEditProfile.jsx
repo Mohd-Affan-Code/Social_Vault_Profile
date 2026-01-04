@@ -15,6 +15,7 @@ import { createProfile, updateProfile } from "../app/ProfileSlice";
 
 export default function AddEditProfileUI({ handleCancel, editingProfile }) {
   const isEditMode = Boolean(editingProfile);
+  console.log(editingProfile);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -25,18 +26,18 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
     username: "",
     platform: "Instagram",
     profileLink: "",
-    notes: "",
+    note: "",
     imageUrl: "",
   });
 
   useEffect(() => {
     if (editingProfile) {
       setFormData({
-        name: editingProfile.name || "",
+        fullName: editingProfile.fullName || "",
         username: editingProfile.username || "",
         platform: editingProfile.platform || "Instagram",
         profileLink: editingProfile.profileLink || "",
-        notes: editingProfile.notes || "",
+        note: editingProfile.note || "",
         imageUrl: editingProfile.imageUrl || "",
       });
     }
@@ -82,13 +83,13 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
     if (isEditMode) {
       dispatch(
         updateProfile({
-          id: editingProfile.rowId, // 👈 IMPORTANT
+          id: editingProfile.$id, // 👈 IMPORTANT
           data: {
-            fullName: formData.name,
+            fullName: formData.fullName,
             username: formData.username,
             plateform: formData.platform,
             profileLink: formData.profileLink,
-            note: formData.notes,
+            note: formData.note,
             imageUrl: formData.imageUrl,
             userId: user.$id,
           },
@@ -97,21 +98,21 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
     } else {
       dispatch(
         createProfile({
-          fullName: formData.name,
+          fullName: formData.fullName,
           username: formData.username,
           plateform: formData.platform,
           profileLink: formData.profileLink,
-          note: formData.notes,
+          note: formData.note,
           imageUrl: formData.imageUrl,
         })
       );
 
       setFormData({
-        name: "",
+        fullName: "",
         username: "",
         platform: "Instagram",
         profileLink: "",
-        notes: "",
+        note: "",
         imageUrl: "",
       });
     }
@@ -192,8 +193,8 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
               <input
                 id="name"
                 type="text"
-                name="name"
-                value={formData.name}
+                name="fullName"
+                value={formData.fullName}
                 onChange={handleChange}
                 placeholder="John Doe"
                 className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
@@ -231,6 +232,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
                 <button
                   key={platform}
                   type="button"
+                  value={formData.platform}
                   onClick={() => handlePlatformClick(platform)}
                   className={`px-4 py-3 rounded-xl border-2 transition-all ${
                     formData.platform === platform
@@ -277,11 +279,11 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
             <div className="relative">
               <FileText className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <textarea
-                id="notes"
-                value={formData.notes}
+                id="note"
+                value={formData.note}
                 onChange={handleChange}
-                name="notes"
-                placeholder="Add any notes about this person..."
+                name="note"
+                placeholder="Add any note about this person..."
                 rows={4}
                 maxLength={50}
                 className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"

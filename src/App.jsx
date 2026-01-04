@@ -16,9 +16,7 @@ function App() {
 
   const { user, loading } = useSelector((state) => state.auth);
 
-  console.log(user);
   useEffect(() => {
-    console.log("rerender");
     authService
       .getCurrentUser()
       .then((user) => {
