@@ -91,7 +91,6 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
             profileLink: formData.profileLink,
             note: formData.note,
             imageUrl: formData.imageUrl,
-            userId: user.$id,
           },
         })
       );
