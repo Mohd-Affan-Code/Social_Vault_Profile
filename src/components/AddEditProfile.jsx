@@ -15,16 +15,16 @@ import { createProfile, updateProfile } from "../app/ProfileSlice";
 
 export default function AddEditProfileUI({ handleCancel, editingProfile }) {
   const isEditMode = Boolean(editingProfile);
-  console.log(editingProfile);
+  // console.log(editingProfile);
 
   const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     username: "",
-    platform: "Instagram",
+    plateform: "",
     profileLink: "",
     note: "",
     imageUrl: "",
@@ -35,7 +35,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
       setFormData({
         fullName: editingProfile.fullName || "",
         username: editingProfile.username || "",
-        platform: editingProfile.platform || "Instagram",
+        plateform: editingProfile.plateform || "Instagram",
         profileLink: editingProfile.profileLink || "",
         note: editingProfile.note || "",
         imageUrl: editingProfile.imageUrl || "",
@@ -52,15 +52,15 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
     }));
   };
 
-  const handlePlatformClick = (platform) => {
+  const handlePlatformClick = (plateform) => {
     setFormData((prev) => ({
       ...prev,
-      platform: platform,
+      plateform: plateform,
     }));
   };
 
   useEffect(() => {
-    if (formData.username && formData.platform) {
+    if (formData.username && formData.plateform) {
       const links = {
         Instagram: `https://instagram.com/${formData.username}`,
         Facebook: `https://facebook.com/${formData.username}`,
@@ -72,10 +72,10 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
 
       setFormData((prev) => ({
         ...prev,
-        profileLink: links[prev.platform] || "",
+        profileLink: links[prev.plateform] || "",
       }));
     }
-  }, [formData.username, formData.platform]);
+  }, [formData.username, formData.plateform]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,7 +87,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
           data: {
             fullName: formData.fullName,
             username: formData.username,
-            plateform: formData.platform,
+            plateform: formData.plateform || "Instagram",
             profileLink: formData.profileLink,
             note: formData.note,
             imageUrl: formData.imageUrl,
@@ -99,7 +99,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
         createProfile({
           fullName: formData.fullName,
           username: formData.username,
-          plateform: formData.platform,
+          plateform: formData.plateform,
           profileLink: formData.profileLink,
           note: formData.note,
           imageUrl: formData.imageUrl,
@@ -109,7 +109,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
       setFormData({
         fullName: "",
         username: "",
-        platform: "Instagram",
+        plateform: "Instagram",
         profileLink: "",
         note: "",
         imageUrl: "",
@@ -227,19 +227,19 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
           <div className="mb-6">
             <label className="block text-gray-700 mb-3">Platform *</label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {platforms.map((platform) => (
+              {platforms.map((plateform) => (
                 <button
-                  key={platform}
+                  key={plateform}
                   type="button"
-                  value={formData.platform}
-                  onClick={() => handlePlatformClick(platform)}
+                  // value={formData.plateform}
+                  onClick={() => handlePlatformClick(plateform)}
                   className={`px-4 py-3 rounded-xl border-2 transition-all ${
-                    formData.platform === platform
+                    formData.plateform === plateform
                       ? "border-blue-500 bg-blue-50 text-blue-700"
                       : "border-gray-200 bg-white text-gray-700 hover:border-gray-300"
                   }`}
                 >
-                  {platform}
+                  {plateform}
                 </button>
               ))}
             </div>
@@ -266,7 +266,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
               />
             </div>
             <p className="text-gray-500 text-sm mt-1">
-              Auto-generated based on platform and username
+              Auto-generated based on plateform and username
             </p>
           </div>
 
