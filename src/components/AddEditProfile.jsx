@@ -109,7 +109,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
       setFormData({
         fullName: "",
         username: "",
-        plateform: "Instagram",
+        plateform: "",
         profileLink: "",
         note: "",
         imageUrl: "",
@@ -172,11 +172,13 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
                   name="imageUrl"
                   value={formData.imageUrl}
                   onChange={handleChange}
+                  readOnly
                   placeholder="Enter image URL"
                   className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 />
                 <p className="text-gray-500 text-sm mt-1">
-                  Paste an image URL or leave blank
+                  It is not working currently so you leave it
+                  {/* Paste an image URL or leave blank */}
                 </p>
               </div>
             </div>
