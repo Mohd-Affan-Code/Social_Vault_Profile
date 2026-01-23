@@ -56,6 +56,7 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
   };
 
   const handleOpenProfile = () => {
+    console.log(profile);
     window.open(profile.profileLink, "_blank");
   };
 
@@ -107,13 +108,13 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
 
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-2">
-          <button className="flex items-center justify-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors">
+          <button className="flex items-center justify-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer">
             <Copy className="w-4 h-4 text-gray-600" />
             <span className="text-gray-700">Copy</span>
           </button>
           <button
             onClick={handleOpenProfile}
-            className="flex items-center justify-center gap-2 px-3 py-2 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors"
+            className="flex items-center justify-center gap-2 px-3 py-2 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors cursor-pointer"
           >
             <ExternalLink className="w-4 h-4 text-blue-600" />
             <span className="text-blue-700">Open</span>
