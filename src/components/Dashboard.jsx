@@ -30,7 +30,7 @@ export default function Dashboard({ setUser }) {
   };
 
   const handleCancel = () => {
-    setShowAddEdit(false);
+    setShowAddEdit(!showAddEdit);
     setEditingProfile({
       fullName: "",
       username: "",

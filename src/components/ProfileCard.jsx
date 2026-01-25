@@ -91,7 +91,7 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
         <div className="flex items-center gap-2 mb-4">
           <div
             className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-linear-to-r ${getPlatformColor(
-              profile.plateform
+              profile.plateform,
             )} text-white shadow-sm`}
           >
             {getPlatformIcon(profile.plateform)}
@@ -126,13 +126,13 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
       <div className="border-t border-gray-100 bg-gray-50 px-6 py-3 flex items-center justify-end gap-2">
         <button
           onClick={() => handleUpdateFormData({ ...profile })}
-          className="p-2 hover:bg-white rounded-lg transition-colors group/edit"
+          className="p-2 hover:bg-white rounded-lg transition-colors group/edit cursor-pointer"
         >
           <Edit2 className="w-4 h-4 text-gray-500 group-hover/edit:text-blue-600 transition-colors" />
         </button>
         <button
           onClick={() => dispatch(deleteProfile(profile.$id))}
-          className="p-2 hover:bg-white rounded-lg transition-colors group/delete"
+          className="p-2 hover:bg-white rounded-lg transition-colors group/delete cursor-pointer"
         >
           <Trash2 className="w-4 h-4 text-gray-500 group-hover/delete:text-red-600 transition-colors" />
         </button>
