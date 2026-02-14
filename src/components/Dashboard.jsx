@@ -10,7 +10,7 @@ import DashboardShimmer from "./shimmer/DashboardShimmer";
 
 export default function Dashboard({ setUser }) {
   const dispatch = useDispatch();
-  const [editingProfile, setEditingProfile] = useState(null);
+  const [editingProfile, setEditingProfile] = useState(false);
 
   const { profiles, loading } = useSelector((state) => state.profiles);
 
@@ -30,7 +30,8 @@ export default function Dashboard({ setUser }) {
   };
 
   const handleCancel = () => {
-    setShowAddEdit(!showAddEdit);
+    setShowAddEdit((prev) => !prev);
+    setEditingProfile(null);
     setEditingProfile({
       fullName: "",
       username: "",

@@ -15,9 +15,10 @@ import { createProfile, updateProfile } from "../app/ProfileSlice";
 
 export default function AddEditProfileUI({ handleCancel, editingProfile }) {
   const isEditMode = Boolean(editingProfile);
+  console.log(isEditMode);
   // console.log(editingProfile);
 
-  const { user } = useSelector((state) => state.auth);
+  // const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -83,7 +84,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
     if (isEditMode) {
       dispatch(
         updateProfile({
-          id: editingProfile.$id, // 👈 IMPORTANT
+          documentId: editingProfile.$id, // 👈 IMPORTANT
           data: {
             fullName: formData.fullName,
             username: formData.username,
@@ -92,7 +93,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
             note: formData.note,
             imageUrl: formData.imageUrl,
           },
-        })
+        }),
       );
     } else {
       dispatch(
@@ -103,7 +104,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
           profileLink: formData.profileLink,
           note: formData.note,
           imageUrl: formData.imageUrl,
-        })
+        }),
       );
 
       setFormData({

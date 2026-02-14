@@ -14,7 +14,7 @@ export const createProfile = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 // READ (LIST)
@@ -27,7 +27,7 @@ export const fetchProfiles = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 // READ (SINGLE)
@@ -39,19 +39,19 @@ export const fetchProfileById = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 // UPDATE
 export const updateProfile = createAsyncThunk(
   "profiles/update",
-  async ({ id, data }, { rejectWithValue }) => {
+  async ({ documentId, data }, { rejectWithValue }) => {
     try {
-      return await databaseService.updateDocument(id, data);
+      return await databaseService.updateDocument(documentId, data);
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 // DELETE
@@ -64,7 +64,7 @@ export const deleteProfile = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 /* ================= SLICE ================= */
@@ -121,7 +121,7 @@ const profileSlice = createSlice({
       /* ---------- UPDATE ---------- */
       .addCase(updateProfile.fulfilled, (state, action) => {
         const index = state.profiles.findIndex(
-          (item) => item.$id === action.payload.$id
+          (item) => item.$id === action.payload.$id,
         );
         if (index !== -1) {
           state.profiles[index] = action.payload;
@@ -131,7 +131,7 @@ const profileSlice = createSlice({
       /* ---------- DELETE ---------- */
       .addCase(deleteProfile.fulfilled, (state, action) => {
         state.profiles = state.profiles.filter(
-          (item) => item.$id !== action.payload
+          (item) => item.$id !== action.payload,
         );
       });
   },
