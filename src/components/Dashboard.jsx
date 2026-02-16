@@ -10,7 +10,8 @@ import DashboardShimmer from "./shimmer/DashboardShimmer";
 
 export default function Dashboard({ setUser }) {
   const dispatch = useDispatch();
-  const [editingProfile, setEditingProfile] = useState(false);
+  const [editingProfile, setEditingProfile] = useState(null);
+  const [showAddEdit, setShowAddEdit] = useState(false);
 
   const { profiles, loading } = useSelector((state) => state.profiles);
 
@@ -18,8 +19,6 @@ export default function Dashboard({ setUser }) {
     // Component load hote hi data fetch karo
     dispatch(fetchProfiles());
   }, [dispatch]);
-
-  const [showAddEdit, setShowAddEdit] = useState(false);
 
   const filteredProfiles = [1];
   const viewMode = "grid";
@@ -32,16 +31,9 @@ export default function Dashboard({ setUser }) {
   const handleCancel = () => {
     setShowAddEdit((prev) => !prev);
     setEditingProfile(null);
-    setEditingProfile({
-      fullName: "",
-      username: "",
-      platform: "",
-      profileLink: "",
-      note: "",
-      imageUrl: "",
-    });
   };
 
+  console.log("step 1 showaddedit true hai false", showAddEdit);
   if (showAddEdit) {
     return (
       <AddEditProfile

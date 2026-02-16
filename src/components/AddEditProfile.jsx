@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProfile, updateProfile } from "../app/ProfileSlice";
 
 export default function AddEditProfileUI({ handleCancel, editingProfile }) {
+  console.log(editingProfile);
   const isEditMode = Boolean(editingProfile);
   console.log(isEditMode);
   // console.log(editingProfile);
@@ -150,6 +151,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8">
         <form
           onSubmit={handleSubmit}
+          autoComplete="off"
           className="bg-white rounded-2xl shadow-md shadow-gray-200/70 p-6 sm:p-8"
         >
           {/* Profile Image Upload */}
@@ -228,13 +230,15 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
 
           {/* Platform */}
           <div className="mb-6">
-            <label className="block text-gray-700 mb-3">Platform *</label>
+            <label className="block text-gray-700 mb-3" htmlFor="platform">
+              Platform *
+            </label>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {platforms.map((plateform) => (
                 <button
                   key={plateform}
                   type="button"
-                  // value={formData.plateform}
+                  value={formData.plateform}
                   onClick={() => handlePlatformClick(plateform)}
                   className={`px-4 py-3 rounded-xl border-2 transition-all ${
                     formData.plateform === plateform
@@ -281,7 +285,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
             <div className="relative">
               <FileText className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
               <textarea
-                id="note"
+                id="notes"
                 value={formData.note}
                 onChange={handleChange}
                 name="note"
