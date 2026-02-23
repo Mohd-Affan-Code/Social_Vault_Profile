@@ -56,7 +56,6 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
   };
 
   const handleOpenProfile = () => {
-    console.log(profile);
     window.open(profile.profileLink, "_blank");
   };
 

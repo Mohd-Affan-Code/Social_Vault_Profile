@@ -20,7 +20,7 @@ export default function Dashboard({ setUser }) {
     dispatch(fetchProfiles());
   }, [dispatch]);
 
-  const filteredProfiles = [1];
+  const filteredProfiles = profiles.length;
   const viewMode = "grid";
 
   const handleUpdateFormData = (editingProfile) => {
@@ -32,8 +32,6 @@ export default function Dashboard({ setUser }) {
     setShowAddEdit((prev) => !prev);
     setEditingProfile(null);
   };
-
-  console.log("step 1 showaddedit true hai false", showAddEdit);
   if (showAddEdit) {
     return (
       <AddEditProfile
@@ -69,8 +67,8 @@ export default function Dashboard({ setUser }) {
               <div>
                 <h2 className="text-gray-900">Your Profiles</h2>
                 <p className="text-gray-600">
-                  {filteredProfiles.length} saved{" "}
-                  {filteredProfiles.length === 1 ? "profile" : "profiles"}
+                  {filteredProfiles} saved{" "}
+                  {filteredProfiles === 1 ? "profile" : "profiles"}
                 </p>
               </div>
             </div>

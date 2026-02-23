@@ -14,19 +14,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProfile, updateProfile } from "../app/ProfileSlice";
 
 export default function AddEditProfileUI({ handleCancel, editingProfile }) {
-  console.log(editingProfile);
   const isEditMode = Boolean(editingProfile);
-  console.log(isEditMode);
-  // console.log(editingProfile);
-
-  // const { user } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
-    plateform: "",
+    plateform: "Instagram",
     profileLink: "",
     note: "",
     imageUrl: "",
@@ -238,7 +233,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
                 <button
                   key={plateform}
                   type="button"
-                  value={formData.plateform}
+                  value={formData.plateform || "Instagram"}
                   onClick={() => handlePlatformClick(plateform)}
                   className={`px-4 py-3 rounded-xl border-2 transition-all ${
                     formData.plateform === plateform
