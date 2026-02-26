@@ -9,9 +9,17 @@ export default function Header({ handleCancel }) {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
+  const { profiles, loading } = useSelector((state) => state.profiles);
+
   async function handleLogout() {
     dispatch(logoutUser());
   }
+
+  const filterProfile = profiles.filter((item) => {
+    console.log(item.fullName);
+    return item.fullName.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+  console.log(filterProfile);
 
   return (
     <div className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
