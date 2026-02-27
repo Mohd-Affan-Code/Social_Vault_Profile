@@ -12,6 +12,7 @@ export default function Dashboard({ setUser }) {
   const dispatch = useDispatch();
   const [editingProfile, setEditingProfile] = useState(null);
   const [showAddEdit, setShowAddEdit] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const { profiles, loading } = useSelector((state) => state.profiles);
 
@@ -19,6 +20,12 @@ export default function Dashboard({ setUser }) {
     // Component load hote hi data fetch karo
     dispatch(fetchProfiles());
   }, [dispatch]);
+
+  const filterProfile = profiles.filter((item) => {
+    console.log(item.fullName);
+    return item.fullName.toLowerCase().includes(searchQuery.toLowerCase());
+  });
+  console.log(filterProfile);
 
   const filteredProfiles = profiles.length;
   const viewMode = "grid";
@@ -51,11 +58,16 @@ export default function Dashboard({ setUser }) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header setUser={setUser} handleCancel={handleCancel} />
+      <Header
+        setUser={setUser}
+        handleCancel={handleCancel}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {profiles.length === 0 ? (
           <EmptyState handleCancel={handleCancel} />
-        ) : filteredProfiles.length === 0 ? (
+        ) : filterProfile.length === 0 ? (
           <div className="text-center py-16">
             <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-gray-600 mb-2">No results found</h3>
@@ -80,7 +92,7 @@ export default function Dashboard({ setUser }) {
                   : "space-y-4"
               }
             >
-              {profiles.map((profile) => (
+              {filterProfile.map((profile) => (
                 <ProfileCard
                   key={profile.$id}
                   profile={profile}

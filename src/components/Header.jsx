@@ -3,23 +3,14 @@ import { Search, Plus, Lock, LogOut, User } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../app/authSlice";
 
-export default function Header({ handleCancel }) {
+export default function Header({ handleCancel, searchQuery, setSearchQuery }) {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState("");
   const [showUserMenu, setShowUserMenu] = useState(false);
   const { user } = useSelector((state) => state.auth);
-
-  const { profiles, loading } = useSelector((state) => state.profiles);
 
   async function handleLogout() {
     dispatch(logoutUser());
   }
-
-  const filterProfile = profiles.filter((item) => {
-    console.log(item.fullName);
-    return item.fullName.toLowerCase().includes(searchQuery.toLowerCase());
-  });
-  console.log(filterProfile);
 
   return (
     <div className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
