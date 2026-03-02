@@ -79,8 +79,8 @@ export default function Dashboard({ setUser }) {
               <div>
                 <h2 className="text-gray-900">Your Profiles</h2>
                 <p className="text-gray-600">
-                  {filteredProfiles} saved{" "}
-                  {filteredProfiles === 1 ? "profile" : "profiles"}
+                  {filterProfile.length} saved{" "}
+                  {filterProfile === 1 ? "profile" : "profiles"}
                 </p>
               </div>
             </div>
