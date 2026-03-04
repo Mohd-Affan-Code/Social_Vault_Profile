@@ -66,6 +66,17 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
     window.open(profile.profileLink, "_blank");
   };
 
+  const handleDelete = () => {
+    if (
+      window.confirm(
+        `Are you sure you want to delete ${profile.fullName}'s profile?`,
+      )
+    ) {
+      dispatch(deleteProfile(profile.$id));
+      toast.success("Profile deleted successfully");
+    }
+  };
+
   return (
     <div className="bg-white rounded-2xl shadow-md shadow-gray-200/70 hover:shadow-lg hover:shadow-gray-300/70 transition-all duration-300 overflow-hidden group">
       {/* Profile Header */}
@@ -140,7 +151,7 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
           <Edit2 className="w-4 h-4 text-gray-500 group-hover/edit:text-blue-600 transition-colors" />
         </button>
         <button
-          onClick={() => dispatch(deleteProfile(profile.$id))}
+          onClick={handleDelete}
           className="p-2 hover:bg-white rounded-lg transition-colors group/delete cursor-pointer"
         >
           <Trash2 className="w-4 h-4 text-gray-500 group-hover/delete:text-red-600 transition-colors" />
