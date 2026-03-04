@@ -11,6 +11,8 @@ import {
   Music,
 } from "lucide-react";
 
+import { toast } from "sonner";
+
 import { useDispatch } from "react-redux";
 // import { removeProfile } from "../features/ProfileData/ProfileDataSlice";
 import { deleteProfile } from "../app/ProfileSlice";
@@ -57,6 +59,7 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
 
   const handleCopyUsername = () => {
     navigator.clipboard.writeText(profile.username);
+    toast.success("Username copied to clipboard!");
   };
 
   const handleOpenProfile = () => {
@@ -111,11 +114,12 @@ export default function ProfileCard({ profile, handleUpdateFormData }) {
 
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-2">
-          <button className="flex items-center justify-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer">
+          <button
+            onClick={handleCopyUsername}
+            className="flex items-center justify-center gap-2 px-3 py-2 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer"
+          >
             <Copy className="w-4 h-4 text-gray-600" />
-            <span className="text-gray-700" onClick={handleCopyUsername}>
-              Copy
-            </span>
+            <span className="text-gray-700">Copy</span>
           </button>
           <button
             onClick={handleOpenProfile}
