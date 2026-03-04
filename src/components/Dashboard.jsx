@@ -22,12 +22,9 @@ export default function Dashboard({ setUser }) {
   }, [dispatch]);
 
   const filterProfile = profiles.filter((item) => {
-    console.log(item.fullName);
     return item.fullName.toLowerCase().includes(searchQuery.toLowerCase());
   });
-  console.log(filterProfile);
 
-  const filteredProfiles = profiles.length;
   const viewMode = "grid";
 
   const handleUpdateFormData = (editingProfile) => {
