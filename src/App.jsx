@@ -17,12 +17,7 @@ function App() {
   const { user, loading } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    authService
-      .getCurrentUser()
-      .then((user) => {
-        if (user) dispatch(getCurrentUser());
-      })
-      .catch(() => {});
+    dispatch(getCurrentUser());
   }, [dispatch]);
 
   if (loading) {

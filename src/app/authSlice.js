@@ -19,7 +19,7 @@ export const createUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 // Login
@@ -37,7 +37,7 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 // Logout
@@ -50,7 +50,7 @@ export const logoutUser = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 // Get Current User
@@ -63,7 +63,7 @@ export const getCurrentUser = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 const initialState = {
@@ -90,7 +90,7 @@ const authSlice = createSlice({
       })
 
       .addCase(createUser.rejected, (state, action) => {
-        (state.loading = false), (state.error = action.payload);
+        ((state.loading = false), (state.error = action.payload));
       })
       // Login
       .addCase(loginUser.pending, (state) => {
@@ -113,9 +113,16 @@ const authSlice = createSlice({
       })
 
       // Get Current User
+      .addCase(getCurrentUser.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(getCurrentUser.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+      })
+      .addCase(getCurrentUser.rejected, (state) => {
+        state.loading = false;
+        state.user = null;
       });
   },
 });
