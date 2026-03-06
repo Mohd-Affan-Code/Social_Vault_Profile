@@ -1,11 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import ProtectedRoute from "./routes/AuthLayout";
-import { authService } from "./services/appwrite/auth";
 import DashboardShimmer from "./components/shimmer/DashboardShimmer";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "./app/authSlice";

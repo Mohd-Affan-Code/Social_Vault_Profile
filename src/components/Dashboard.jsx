@@ -5,7 +5,7 @@ import ProfileCard from "./ProfileCard";
 import Header from "./Header";
 import AddEditProfile from "./AddEditProfile";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProfiles, deleteProfile } from "../app/ProfileSlice";
+import { fetchProfiles } from "../app/ProfileSlice";
 import DashboardShimmer from "./shimmer/DashboardShimmer";
 
 export default function Dashboard({ setUser }) {

@@ -14,7 +14,6 @@ import {
 import { toast } from "sonner";
 
 import { useDispatch } from "react-redux";
-// import { removeProfile } from "../features/ProfileData/ProfileDataSlice";
 import { deleteProfile } from "../app/ProfileSlice";
 
 export default function ProfileCard({ profile, handleUpdateFormData }) {
