@@ -11,7 +11,6 @@ import { getCurrentUser } from "./app/authSlice";
 
 function App() {
   const dispatch = useDispatch();
-  // const [user, setUser] = useState(null);
 
   const { user, loading } = useSelector((state) => state.auth);
 

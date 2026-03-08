@@ -1,7 +1,6 @@
 import {
   X,
   Save,
-  Upload,
   User,
   AtSign,
   Link as LinkIcon,
@@ -9,7 +8,7 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { createProfile, updateProfile } from "../app/ProfileSlice";
 
@@ -80,7 +79,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
     if (isEditMode) {
       dispatch(
         updateProfile({
-          documentId: editingProfile.$id, // 👈 IMPORTANT
+          documentId: editingProfile.$id,
           data: {
             fullName: formData.fullName,
             username: formData.username,
@@ -275,7 +274,7 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
           {/* Notes */}
           <div className="mb-8">
             <label htmlFor="notes" className="block text-gray-700 mb-2">
-              Notes
+              Notes (50-char only)
             </label>
             <div className="relative">
               <FileText className="absolute left-3 top-3 w-5 h-5 text-gray-400" />

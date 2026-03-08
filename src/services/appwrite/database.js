@@ -2,18 +2,16 @@ import { tablesDB, ID, Role, Permission } from "./config";
 
 import conf from "../../conf/conf";
 
-// Base configuration ek jagah define karo
 const DB_CONFIG = {
   databaseId: conf.databaseId,
   tableId: conf.collectionId,
 };
 
 export const databaseService = {
-  // Create Document
   async createDocument(data, userId) {
     try {
       const response = await tablesDB.createRow({
-        ...DB_CONFIG, // Spread operator se IDs automatically add ho jayengi
+        ...DB_CONFIG,
         rowId: ID.unique(),
         data: {
           username: data.username,
