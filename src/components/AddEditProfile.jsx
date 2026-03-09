@@ -58,12 +58,12 @@ export default function AddEditProfileUI({ handleCancel, editingProfile }) {
   useEffect(() => {
     if (formData.username && formData.plateform) {
       const links = {
-        Instagram: `https://instagram.com/${formData.username}`,
-        Facebook: `https://facebook.com/${formData.username}`,
-        Twitter: `https://twitter.com/${formData.username}`,
-        LinkedIn: `https://linkedin.com/in/${formData.username}`,
-        YouTube: `https://youtube.com/@${formData.username}`,
-        TikTok: `https://tiktok.com/@${formData.username}`,
+        Instagram: `https://www.instagram.com/${formData.username}`,
+        Facebook: `https://www.facebook.com/${formData.username}`,
+        Twitter: `https://www.twitter.com/${formData.username}`,
+        LinkedIn: `https://www.linkedin.com/in/${formData.username}`,
+        YouTube: `https://www.youtube.com/@${formData.username}`,
+        TikTok: `https://www.tiktok.com/@${formData.username}`,
       };
 
       setFormData((prev) => ({
