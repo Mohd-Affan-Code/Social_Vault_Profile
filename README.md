@@ -1,16 +1,70 @@
-# React + Vite
+# Profile Vault
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Profile Vault is a simple web application that allows users to create and share a single profile page containing links to their social media accounts.
+It works like a mini link-in-bio tool where users can store and open all their important social profiles from one place.
 
-Currently, two official plugins are available:
+## 📸 Screenshots
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Dashboard](./screenshots/dashboard.png)
 
-## React Compiler
+## 🚀 Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Create a personal profile page
+- Add social media usernames (Instagram, LinkedIn, etc.)
+- Open social profiles directly
+- Mobile-friendly interface
+- Hosted on Vercel
+- Simple and fast UI
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React.js
+- Tailwind CSS
+- Appwrite (Authentication & Backend)
+- Vercel (Hosting)
+
+## 📦 Installation
+
+Clone the repository:
+
+git clone https://github.com/Mohd-Affan-Code/Social_Vault_Profile
+
+Go to project directory:
+
+cd profile-vault
+
+Install dependencies:
+
+npm install
+
+Run the development server:
+
+npm run dev
+
+## 🌐 Live Demo
+
+https://social-vault-profile.vercel.app/
+
+## 📁 Project Structure
+
+src/
+├── components
+├── pages
+├── services
+└── App.jsx
+
+## 🎯 Future Improvements
+
+- Profile customization
+- More social platforms
+- Analytics for profile clicks
+- QR code for profile sharing
+
+## 🤝 Contributing
+
+Contributions are welcome.
+Feel free to fork this repository and submit a pull request.
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
