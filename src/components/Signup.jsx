@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { authService } from "../services/appwrite/auth";
 import { Link } from "react-router";
 import { createUser } from "../app/authSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,8 +12,6 @@ function Signup() {
     email: "",
     password: "",
   });
-  // const [error, setError] = useState("");
-  // const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -25,34 +22,12 @@ function Signup() {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    // setError("");
-    // setLoading(true);
     dispatch(createUser(formData));
-
-    // try {
-    //   await authService.createAccount(
-    //     formData.email,
-    //     formData.password,
-    //     formData.name
-    //   );
-    //   // Auto login after signup
-    //   await authService.login(formData.email, formData.password);
-    //   alert("Account created successfully!");
-    //   const userData = await authService.getCurrentUser();
-
-    //   // 4. Sabse important: App.jsx ki state update karein
-    //   setUser(userData);
-    // } catch (err) {
-    //   setError(err.message);
-    // } finally {
-    //   setLoading(false);
-    // }
   };
 
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Glass morphism container */}
         <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-8 space-y-8">
           {/* Header */}
           <div className="text-center space-y-2">
