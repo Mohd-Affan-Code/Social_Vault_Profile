@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { createUser } from "../app/authSlice";
+import { Eye, EyeClosed } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Signup() {
@@ -100,6 +101,7 @@ function Signup() {
                 placeholder="••••••••"
                 className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 hover:bg-white/10"
               />
+
               <p className="text-xs text-purple-300/70 mt-1">
                 Must be at least 8 characters long
               </p>
