@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { loginUser } from "../app/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import PasswordInput from "./PasswordInput";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -61,14 +62,10 @@ function Login() {
               >
                 Password
               </label>
-              <input
-                id="password"
-                type="password"
+              <PasswordInput
+                name="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="••••••••"
-                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-purple-300/50 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all duration-200 hover:bg-white/10"
               />
             </div>
 
