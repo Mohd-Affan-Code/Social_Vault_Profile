@@ -11,6 +11,7 @@ function PasswordInput({ name, value, onChange }) {
         name={name}
         value={value}
         onChange={onChange}
+        autoComplete="off"
         required
         minLength="8"
         placeholder="••••••••"
